@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/function",
   "bindings": [
     {
       "authLevel": "anonymous",
@@ -19,7 +20,7 @@
       "tableName": "Aka",
       "partitionKey": "aka",
       "rowKey": "{alias}",
-      "take": 1,
+      "take": "1",
       "connection": "AzureWebJobsStorage",
       "direction": "in"
     },
@@ -34,7 +35,6 @@
       "name": "$return",
       "type": "http",
       "direction": "out"
-    }    
-  ],
-  "disabled": false
+    }
+  ]
 }

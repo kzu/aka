@@ -1,7 +1,13 @@
 {
     "$schema": "http://json.schemastore.org/proxies",
     "proxies": {
-        "buildproxy": {
+        "statsproxy": {
+            "matchCondition": {
+                "route": "stats/redirect"
+            },
+            "backendUri": "https://localhost/stats/redirect"
+        },
+        "akaproxy": {
             "matchCondition": {
                 "route": "{*alias}"
             },
