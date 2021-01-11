@@ -17,7 +17,7 @@ public static IActionResult Run(
 
     output = default;
 
-    if (aka?.RowKey == "400")
+    if (alias == "400" || string.IsNullOrEmpty(alias))
         return new BadRequestResult();
 
     // Create
