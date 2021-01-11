@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json.schemastore.org/proxies",
+    "proxies": {
+        "buildproxy": {
+            "matchCondition": {
+                "route": "{*alias}"
+            },
+            "backendUri": "https://%WEBSITE_HOSTNAME%/aka/{alias}"
+        }
+    }
+}
