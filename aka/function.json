@@ -1,0 +1,41 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in",
+      "methods": [
+        "get",
+        "post",
+        "delete",
+        "head",
+        "put"
+      ],
+      "route": "{alias}"
+    },
+    {
+      "type": "table",
+      "name": "aka",
+      "tableName": "Aka",
+      "partitionKey": "Aka",
+      "rowKey": "{alias}",
+      "take": 1,
+      "connection": "AzureWebJobsStorage",
+      "direction": "in"
+    },
+    {
+      "type": "table",
+      "name": "output",
+      "tableName": "Aka",
+      "connection": "AzureWebJobsStorage",
+      "direction": "out"
+    },
+    {
+      "name": "$return",
+      "type": "http",
+      "direction": "out"
+    }    
+  ],
+  "disabled": false
+}
