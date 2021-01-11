@@ -7,9 +7,8 @@
       "direction": "in",
       "methods": [
         "get",
-        "post",
-        "delete",
         "head",
+        "post",
         "put"
       ],
       "route": "aka/{alias}"
