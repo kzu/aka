@@ -3,6 +3,8 @@
 An Azure function implementing a URL shortening service backed by Azure blob storage 
 in the fewest lines of code possible (~70 LoC).
 
+[Read the announcement](https://www.cazzulino.com/minimalist-shortlinks.html)
+
 ## Installing
 
 1. Fork the repo
