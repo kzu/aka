@@ -8,14 +8,17 @@ static readonly string authorization = Environment.GetEnvironmentVariable("X-Aut
 
 public static IActionResult Run(
     HttpRequest req, 
-    string alias, 
     Aka aka, 
     ILogger log, 
-    out Aka output)
+    out Aka output, 
+    string alias = "400")
 {
     log.LogInformation($"alias={alias}, PK={aka?.PartitionKey}, RK={aka?.RowKey}, Url={aka?.Url}");
 
     output = default;
+
+    if (aka?.RowKey == "400")
+        return new BadRequestResult();
 
     // Create
     if (req.Method == "POST" || req.Method == "PUT")
@@ -49,8 +52,19 @@ public static IActionResult Run(
 
 public class Aka
 {
+    string rowKey = "400";
+
     public string PartitionKey { get; set; } = "aka";
-    public string RowKey { get; set; }
+    public string RowKey 
+    { 
+        get => rowKey;
+        set 
+        {
+            if (!string.IsNullOrEmpty(value))
+                rowKey = value;  
+        }
+    }
+
     public string Url { get; set; }
     public string ETag { get; } = "*";
 }
