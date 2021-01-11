@@ -29,7 +29,7 @@ public static IActionResult Run(
                 if (aka != null)
                     aka.Url = url;
                 else
-                    aka = new Aka { PartitionKey = "Aka", RowKey = alias, Url = url }; 
+                    aka = new Aka { RowKey = alias, Url = url }; 
 
                 output = aka;
                 return new RedirectResult(url);
@@ -49,7 +49,7 @@ public static IActionResult Run(
 
 public class Aka
 {
-    public string PartitionKey { get; set; }
+    public string PartitionKey { get; set; } = "aka";
     public string RowKey { get; set; }
     public string Url { get; set; }
     public string ETag { get; } = "*";
