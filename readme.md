@@ -32,3 +32,7 @@ curl -d [TARGET_URL] -H "X-Authorization: [SHARED_SECRET]" https://[FUNCTION_APP
 The `X-Authorization` must match what you specified in step 3 during install/configuration.
 
 That's it.
+
+Example redirection [stats](https://github.com/kzu/aka/blob/main/stats/run.csx) badge:
+
+![redirects badge](https://img.shields.io/endpoint.svg?url=https://aka.kzu.io/stats/redirect&label=%E2%A5%A4%20redirects&color=brightgreen&logo=Azure-Functions&logoColor=brightgreen)
