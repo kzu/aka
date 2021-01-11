@@ -5,7 +5,7 @@
             "matchCondition": {
                 "route": "{*alias}"
             },
-            "backendUri": "https://%WEBSITE_HOSTNAME%/aka/{alias}"
+            "backendUri": "https://localhost/aka/{alias}"
         }
     }
 }

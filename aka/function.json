@@ -12,7 +12,7 @@
         "head",
         "put"
       ],
-      "route": "{alias}"
+      "route": "aka/{alias}"
     },
     {
       "type": "table",
