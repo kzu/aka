@@ -51,7 +51,7 @@ public static IActionResult Run(
     if (string.IsNullOrEmpty(uri.Query))
         return new RedirectResult(aka.Url + req.QueryString.Value);
     else
-        return new RedirectResult(aka.Url + req.QueryString.Value.Substring(1));
+        return new RedirectResult(aka.Url + req.QueryString.Value.TrimStart('?'));
 }
 
 public class Aka
