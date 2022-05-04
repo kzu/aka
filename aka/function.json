@@ -21,14 +21,14 @@
       "partitionKey": "aka",
       "rowKey": "{alias}",
       "take": "1",
-      "connection": "AzureWebJobsStorage",
+      "connection": "Storage",
       "direction": "in"
     },
     {
       "type": "table",
       "name": "output",
       "tableName": "Aka",
-      "connection": "AzureWebJobsStorage",
+      "connection": "Storage",
       "direction": "out"
     },
     {
