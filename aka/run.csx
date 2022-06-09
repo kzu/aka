@@ -43,9 +43,9 @@ public static IActionResult Run(
 
     var uri = new Uri(aka.Url);
     if (string.IsNullOrEmpty(uri.Query))
-        return new RedirectResult(aka.Url + req.QueryString.Value);
+        return new RedirectResult(aka.Url + req.QueryString.Value) { PreserveMethod = true };
     else
-        return new RedirectResult(aka.Url + req.QueryString.Value.TrimStart('?'));
+        return new RedirectResult(aka.Url + req.QueryString.Value.TrimStart('?')) { PreserveMethod = true };
 }
 
 public class Aka
