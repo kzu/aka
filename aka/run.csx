@@ -7,10 +7,10 @@ using Microsoft.Extensions.Primitives;
 static readonly string authorization = Environment.GetEnvironmentVariable("X-Authorization");
 
 public static IActionResult Run(
-    HttpRequest req, 
-    Aka aka, 
-    ILogger log, 
-    out Aka output, 
+    HttpRequest req,
+    Aka aka,
+    ILogger log,
+    out Aka output,
     string alias = "400")
 {
     log.LogInformation($"alias={alias}, PK={aka?.PartitionKey}, RK={aka?.RowKey}, Url={aka?.Url}");
@@ -20,27 +20,21 @@ public static IActionResult Run(
     if (alias == "400" || string.IsNullOrEmpty(alias))
         return new BadRequestResult();
 
-    // Create
-    if (req.Method == "POST" || req.Method == "PUT")
+    // Create if authorized, otherwise we just redirect as normal if we have one.
+    if (req.Method == "POST" || req.Method == "PUT" &&
+        req.Headers.TryGetValue("X-Authorization", out var values) &&
+        values.FirstOrDefault() == authorization)
     {
-        if (req.Headers.TryGetValue("X-Authorization", out var values) && 
-            values.FirstOrDefault() == authorization)
+        using (var reader = new StreamReader(req.Body))
         {
-            using (var reader = new StreamReader(req.Body))
-            {
-                var url = reader.ReadToEnd();
-                if (aka != null)
-                    aka.Url = url;
-                else
-                    aka = new Aka { RowKey = alias, Url = url }; 
+            var url = reader.ReadToEnd();
+            if (aka != null)
+                aka.Url = url;
+            else
+                aka = new Aka { RowKey = alias, Url = url };
 
-                output = aka;
-                return new RedirectResult(url);
-            }    
-        }
-        else
-        {
-            return new UnauthorizedResult();
+            output = aka;
+            return new RedirectResult(url);
         }
     }
 
@@ -59,13 +53,13 @@ public class Aka
     string rowKey = "400";
 
     public string PartitionKey { get; set; } = "aka";
-    public string RowKey 
-    { 
+    public string RowKey
+    {
         get => rowKey;
-        set 
+        set
         {
             if (!string.IsNullOrEmpty(value))
-                rowKey = value;  
+                rowKey = value;
         }
     }
 
