@@ -25,9 +25,16 @@ public static IActionResult Run(
         req.Headers.TryGetValue("X-Authorization", out var values) &&
         values.FirstOrDefault() == authorization)
     {
+        log.LogInformation("Found authorization header, updating redirect URL.");
         using (var reader = new StreamReader(req.Body))
         {
             var url = reader.ReadToEnd();
+            if (!Uri.TryCreate(url, UriKind.Absolute, out var redirectUri))
+            {
+                log.LogWarning($"Invalid body cannot be parsed  as a URL: {url}");
+                return new BadRequestResult();
+            }
+
             if (aka != null)
                 aka.Url = url;
             else
