@@ -21,11 +21,11 @@ public static IActionResult Run(
         return new BadRequestResult();
 
     // Create if authorized, otherwise we just redirect as normal if we have one.
-    if (req.Method == "POST" || req.Method == "PUT" &&
+    if ((req.Method == "POST" || req.Method == "PUT") &&
         req.Headers.TryGetValue("X-Authorization", out var values) &&
         values.FirstOrDefault() == authorization)
     {
-        log.LogInformation($"Found authorization header '{values.FirstOrDefault()}' matches expected value '{authorization}', updating redirect URL.");
+        log.LogInformation($"Found expected authorization header updating redirect URL.");
         using (var reader = new StreamReader(req.Body))
         {
             var url = reader.ReadToEnd();
