@@ -25,7 +25,7 @@ public static IActionResult Run(
         req.Headers.TryGetValue("X-Authorization", out var values) &&
         values.FirstOrDefault() == authorization)
     {
-        log.LogInformation("Found authorization header, updating redirect URL.");
+        log.LogInformation($"Found authorization header '{values.FirstOrDefault()}' matches expected value '{authorization}', updating redirect URL.");
         using (var reader = new StreamReader(req.Body))
         {
             var url = reader.ReadToEnd();
