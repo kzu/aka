@@ -35,4 +35,4 @@ That's it.
 
 Example redirection [stats](https://github.com/kzu/aka/blob/main/stats/run.csx) badge:
 
-![redirects badge](https://img.shields.io/endpoint.svg?url=https://aka.kzu.io/stats/redirect&label=%E2%A5%A4%20redirects&color=brightgreen&logo=Azure-Functions&logoColor=brightgreen)
+![redirects badge](https://img.shields.io/endpoint.svg?url=https://aka.kzu.dev/stats/redirect&label=%E2%A5%A4%20redirects&color=brightgreen&logo=Azure-Functions&logoColor=brightgreen)
