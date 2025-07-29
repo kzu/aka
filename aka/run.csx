@@ -49,6 +49,31 @@ public static IActionResult Run(
         return new NotFoundResult();
 
     var uri = new Uri(aka.Url);
+    if (aka.Fetch)
+    {
+        // fetch url and return raw content from upstream
+        log.LogInformation($"Fetching URL: {aka.Url}");
+        using (var client = new HttpClient())
+        {
+            var response = client.GetAsync(aka.Url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+                return new ContentResult
+                {
+                    Content = content,
+                    ContentType = response.Content.Headers.ContentType?.MediaType ?? "text/plain",
+                    StatusCode = (int)response.StatusCode
+                };
+            }
+            else
+            {
+                log.LogWarning($"Failed to fetch URL: {aka.Url}, Status Code: {response.StatusCode}");
+                return new StatusCodeResult((int)response.StatusCode);
+            }
+        }
+    }
+
     if (string.IsNullOrEmpty(uri.Query))
         return new RedirectResult(aka.Url + req.QueryString.Value) { PreserveMethod = true };
     else
@@ -71,5 +96,6 @@ public class Aka
     }
 
     public string Url { get; set; }
+    public bool Fetch { get; set; }
     public string ETag { get; } = "*";
 }
